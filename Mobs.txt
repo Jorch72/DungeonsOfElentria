@@ -1,0 +1,11 @@
+name			:	symbol	:	color		:	HP	:	attack	:	armor	: dodge chance
+
+								GOBLIN FAMILY
+								
+goblin			:	g		:	brightGreen	:	7	:	6		:	1		: 5
+goblin warrior	:	g		:	darkGreen	:	10	:	6		:	3		: 5
+goblin captain	:	g		:	darkGreen	:	15	:	6		:	3		: 5
+
+								BOSSES
+
+Elena			:	E		:	blue		:	50	:	6		:	5		: 10
