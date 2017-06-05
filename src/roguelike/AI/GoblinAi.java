@@ -16,6 +16,7 @@ public class GoblinAi extends BaseAI{
 		if(this.canSee(player.x, player.y)){
 			hunt(player);
 		}
+		else if(mob.level().hasItemAlready(mob.x, mob.y)){ mob.pickupItem(); }
 		else{
 			wander();
 		}

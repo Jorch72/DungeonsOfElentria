@@ -34,7 +34,10 @@ public class BaseEntity implements EntityInterface{
 	
 	public void setMaxCarryWeight(int carryWeight){ this.maxCarryWeight = carryWeight; }
 	public double maxCarryWeight(){ return this.maxCarryWeight; }
-	public double currentCarryWeight(){ return this.equipment().CurrentWeight() + this.inventory().CurrentWeight(); }
+	public double currentCarryWeight(){ 
+		if(this.equipment() != null && this.inventory() != null){ return this.equipment().CurrentWeight() + this.inventory().CurrentWeight(); }
+		else{ return this.inventory().CurrentWeight(); }
+		}
 	
 	public Inventory inventory(){ return this.inventory; }
 	public void setInventory(BaseEntity Entity){ this.inventory = new Inventory(Entity); }
