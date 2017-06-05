@@ -3,11 +3,11 @@ package roguelike.AI;
 import roguelike.Mob.EnemyEntity;
 import roguelike.Mob.Player;
 
-public class GoblinAi extends BaseAI{
+public class AggressiveAI extends BaseAI{
 	
 	public Player player;
 	
-	public GoblinAi(EnemyEntity mob, Player player){
+	public AggressiveAI(EnemyEntity mob, Player player){
 		super(mob);
 	}
 	

@@ -92,12 +92,8 @@ public class ItemFactory {
 	}
 	
 	public Item newItem(String itemName){
-		try{
-			itemFile = openItemFile(itemFileName);
-		}
-		catch(FileNotFoundException e){
-			System.out.println(e.getMessage());
-		}
+		try{ itemFile = openItemFile(itemFileName); }
+		catch(FileNotFoundException e){ System.out.println(e.getMessage());}
 		
 		String name = null, itemType = null;
 		char glyph = 0;

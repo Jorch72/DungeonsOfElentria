@@ -1,14 +1,14 @@
-name			:	symbol	:	color		:	HP	:	attack	:	armor	: dodge chance	:	effect
+name			:	symbol	:	color		:	HP	:	attack	:	armor	: dodge chance	:	effect	:	AI
 
 								INSECT FAMILY
-giant hornet	:	h		:	white		:	15	:	3		:	1		:	5			:	poison
+giant hornet	:	h		:	white		:	15	:	6		:	1		:	5			:	poison	:	aggressive
 
 								GOBLIN FAMILY
-								
-goblin			:	g		:	brightGreen	:	7	:	6		:	1		: 	5			:	none
-goblin warrior	:	g		:	darkGreen	:	10	:	6		:	3		: 	5			:	none
-goblin captain	:	g		:	darkGreen	:	15	:	6		:	3		: 	5			:	none
+
+goblin			:	g		:	brightGreen	:	7	:	6		:	1		: 	5			:	none	:	aggressive
+goblin warrior	:	g		:	darkGreen	:	10	:	6		:	3		: 	5			:	none	:	aggressive
+goblin captain	:	g		:	darkGreen	:	15	:	6		:	3		: 	5			:	none	:	aggressive
 
 								BOSSES
 
-Elena			:	E		:	blue		:	50	:	6		:	5		: 	0			:	poison
+Elena			:	E		:	blue		:	50	:	6		:	5		: 	0			:	poison	:	aggressive

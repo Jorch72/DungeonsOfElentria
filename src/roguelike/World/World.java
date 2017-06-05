@@ -99,19 +99,20 @@ public class World {
 		for(int i = 0; i < 25; i++){
 			int x = RandomGen.rand(1, 100);
 			if(x <= 2){
-				mobStore.newElena();
+				mobStore.newEnemy("Elena");
 			}
 			else if((x >= 3) && (x <= 20)){
 				int y = RandomGen.rand(1, 100);
 				if(y <= 50){
-					mobStore.newGoblinCaptain();
+					mobStore.newEnemy("goblin captain");
 				}
 				else{
-					mobStore.newGoblinWarrior();
+					mobStore.newEnemy("goblin warrior");
 				}
 			}
 			else{
-				mobStore.newGoblin();
+				mobStore.newEnemy("goblin");
+				mobStore.newEnemy("giant hornet");
 			}
 		}
 	}
