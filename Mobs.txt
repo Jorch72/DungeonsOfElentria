@@ -1,11 +1,14 @@
-name			:	symbol	:	color		:	HP	:	attack	:	armor	: dodge chance
+name			:	symbol	:	color		:	HP	:	attack	:	armor	: dodge chance	:	effect
+
+								INSECT FAMILY
+giant hornet	:	h		:	white		:	15	:	3		:	1		:	5			:	poison
 
 								GOBLIN FAMILY
 								
-goblin			:	g		:	brightGreen	:	7	:	6		:	1		: 5
-goblin warrior	:	g		:	darkGreen	:	10	:	6		:	3		: 5
-goblin captain	:	g		:	darkGreen	:	15	:	6		:	3		: 5
+goblin			:	g		:	brightGreen	:	7	:	6		:	1		: 	5			:	none
+goblin warrior	:	g		:	darkGreen	:	10	:	6		:	3		: 	5			:	none
+goblin captain	:	g		:	darkGreen	:	15	:	6		:	3		: 	5			:	none
 
 								BOSSES
 
-Elena			:	E		:	blue		:	50	:	6		:	5		: 10
+Elena			:	E		:	blue		:	50	:	6		:	5		: 	0			:	poison
