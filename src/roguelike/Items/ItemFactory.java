@@ -35,7 +35,7 @@ public class ItemFactory {
 			System.out.println(e.getMessage());
 		}
 		
-		String name = null, itemType = null;
+		String name = null, itemType = null, effect = null;
 		char glyph = 0;
 		Color color = null;
 		int toHitBonus = 0, numOfDice = 0, attack = 0, attackBonus = 0, dodge = 0, armor = 0;
@@ -53,6 +53,7 @@ public class ItemFactory {
 				continue;
 			}
 			tokens = tempLine.split(":");
+			if(tokens.length == 11){
 			if(!tokens[0].trim().equals("name")){
 				name = tokens[0].trim();
 				itemType = tokens[1].trim();
@@ -76,6 +77,15 @@ public class ItemFactory {
 				
 				itemDictionary.put(name, newItem);
 				itemList.add(newItem);
+			}
+		}
+			else if(tokens.length == 6){
+				name = tokens[0].trim();
+				itemType = tokens[1].trim();
+				glyph = tokens[2].trim().charAt(0);
+				color = colorDictionary.get(tokens[3].trim());
+				weight = Double.parseDouble(tokens[4].trim());
+				effect = tokens[5].trim();
 			}
 		}
 		
