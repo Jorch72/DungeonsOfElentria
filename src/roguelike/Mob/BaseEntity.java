@@ -1,12 +1,15 @@
 package roguelike.Mob;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 import roguelike.AI.BaseAI;
 import roguelike.Items.Inventory;
 import roguelike.Items.Item;
 import roguelike.Level.Level;
 import roguelike.levelBuilding.Tile;
+import roguelike.modifiers.*;
 import roguelike.utility.RandomGen;
 
 public class BaseEntity implements EntityInterface{
@@ -21,6 +24,8 @@ public class BaseEntity implements EntityInterface{
 	private double maxCarryWeight;
 	private Inventory inventory;
 	private Inventory equipment;
+	private List <Effect> effects;
+	private String poisonType;
 	
 	public BaseEntity(Level level, char glyph, Color color){
 		this.level = level;
@@ -28,9 +33,16 @@ public class BaseEntity implements EntityInterface{
 		this.color = color;
 		this.visionRadius = 0;
 		this.isPlayer = false;
+		this.effects = new ArrayList <Effect> ();
+		this.poisonType = "none";
 	}
 	
 	public Tile realTile(int x, int y){ return this.level().tile(x, y); }
+	
+	public List <Effect> effects(){ return this.effects; }
+	
+	public String poisonType(){ return this.poisonType; }
+	public void setPoisonType(String poisonType){ this.poisonType = poisonType; }
 	
 	public void setMaxCarryWeight(int carryWeight){ this.maxCarryWeight = carryWeight; }
 	public double maxCarryWeight(){ return this.maxCarryWeight; }
@@ -63,7 +75,7 @@ public class BaseEntity implements EntityInterface{
 	public void setMaxHP(int amount){ this.maxHP = amount; this.currentHP = amount; }
 	
 	public int currentHP(){ return this.currentHP; }
-	public void setCurrentHP(int amount){ this.currentHP -= amount; }
+	public void setCurrentHP(int amount){ this.currentHP += amount; }
 	
 	public int attackDamage(){ return this.attackDamage; }
 	public void setAttack(int damage){ this.attackDamage = damage; }
@@ -78,7 +90,6 @@ public class BaseEntity implements EntityInterface{
 	public int visionRadius(){ return this.visionRadius; }
 	public void setVisionRadius(int visionRadius){ this.visionRadius = visionRadius; }
 	
-	public void update(){ ai.onUpdate(); }
 	public void setMobAi(BaseAI ai){ this.ai = ai; }
 	
 	public void notify(String message, Object...params){
@@ -115,6 +126,9 @@ public class BaseEntity implements EntityInterface{
 			}
 			ai.onEnter(this.x + x, this.y + y, this.level);
 		}
+		else if(!isPlayer() && !otherEntity.isPlayer()){
+			return;
+		}
 		else{
 			meleeAttack(otherEntity);
 		}
@@ -141,7 +155,19 @@ public class BaseEntity implements EntityInterface{
 		else{
 			action = "attack";
 			doAttackAction(action, otherEntity, damageAmount);
-			otherEntity.modifyHP(damageAmount, "killed by a " + this.name());
+			otherEntity.modifyHP(-damageAmount, "killed by a " + this.name());
+			
+			int poisonRoll = RandomGen.rand(1, 100);
+			if(poisonType().equals("weak poison") && poisonRoll >= 80){
+				Poison newPoison = new Poison(1, 10);
+				newPoison.start(otherEntity);
+				otherEntity.effects().add(newPoison);
+			}
+			else if(poisonType().equals("strong poison") && poisonRoll >= 60){
+				Poison newPoison = new Poison(2, 15);
+				newPoison.start(otherEntity);
+				otherEntity.effects().add(newPoison);
+			}
 		}
 	}
 	
@@ -184,7 +210,24 @@ public class BaseEntity implements EntityInterface{
 		return builder.toString().trim();
 	}
 	
+	private void updateEffects(){
+		List <Effect> done = new ArrayList <Effect> ();
+		
+		for(Effect effect : effects){
+			effect.update(this);
+			if(effect.isDone()){
+				effect.end(this);
+				done.add(effect);
+			}
+		}
+		
+		effects.removeAll(done);
+	}
 	
+	public void update(){ 
+		ai.onUpdate();
+		updateEffects();
+		}
 	
 	
 	

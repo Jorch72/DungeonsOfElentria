@@ -284,7 +284,7 @@ public class Player extends BaseEntity{
 		
 		if(toHitRoll < otherEntity.dodge()){ action = "dodge"; doDeflectAction(action, otherEntity); }
 		else if(damageAmount < 1){ action = "deflect"; doDeflectAction(action, otherEntity); }
-		else{ action = "attack"; doAttackAction(action, otherEntity, damageAmount); otherEntity.modifyHP(damageAmount, "killed by a " + name()); }
+		else{ action = "attack"; doAttackAction(action, otherEntity, damageAmount); otherEntity.modifyHP(-damageAmount, "killed by a " + name()); }
 	}
 	
 	

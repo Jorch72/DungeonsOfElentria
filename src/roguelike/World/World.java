@@ -96,24 +96,9 @@ public class World {
 	}
 	
 	public void initializeMobsOnLevel(){
-		for(int i = 0; i < 25; i++){
-			int x = RandomGen.rand(1, 100);
-			if(x <= 2){
-				mobStore.newEnemy("Elena");
-			}
-			else if((x >= 3) && (x <= 20)){
-				int y = RandomGen.rand(1, 100);
-				if(y <= 50){
-					mobStore.newEnemy("goblin captain");
-				}
-				else{
-					mobStore.newEnemy("goblin warrior");
-				}
-			}
-			else{
-				mobStore.newEnemy("goblin");
-				mobStore.newEnemy("giant hornet");
-			}
+		for(int i = 0; i < 50; i++){
+			int roll = RandomGen.rand(0, mobStore.enemyDictionary.size() - 1);
+			mobStore.newEnemy(mobStore.enemyList.get(roll).name());
 		}
 	}
 }

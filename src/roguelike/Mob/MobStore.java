@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 import asciiPanel.AsciiPanel;
 import roguelike.AI.AggressiveAI;
-import roguelike.AI.BaseAI;
 import roguelike.AI.playerAi;
 import roguelike.Level.Level;
 
@@ -36,11 +35,11 @@ public class MobStore {
 		try{ mobFile = openMobFile(mobFileName); }
 		catch(FileNotFoundException e){ System.out.println(e.getMessage()); }
 		
-		String name = null, ai = null, effect = null;
+		String name = null, ai = null;
 		char glyph = 0;
 		Color color = null;
 		int HP = 0, attack = 0, armor = 0, dodge = 0;
-		String[] tokens = null;
+		String[] tokens = null, effects = null;
 		
 		while(mobFile.hasNextLine()){
 			String tempLine = mobFile.nextLine();
@@ -56,7 +55,7 @@ public class MobStore {
 				attack = Integer.parseInt(tokens[4].trim());
 				armor = Integer.parseInt(tokens[5].trim());
 				dodge = Integer.parseInt(tokens[6].trim());
-				effect = tokens[7].trim();
+				effects = tokens[7].trim().split(", ");
 				ai = tokens[8].trim();
 				
 				EnemyEntity newEnemy = new EnemyEntity(thisLevel, glyph, color);
@@ -65,9 +64,20 @@ public class MobStore {
 				newEnemy.setArmor(armor);
 				newEnemy.setMaxHP(HP);
 				newEnemy.setDodge(dodge);
+				newEnemy.setIsPlayer(false);
+				newEnemy.setVisionRadius(10);
 				
 				if(ai == "aggressive"){
 					new AggressiveAI(newEnemy, thisLevel.player);
+				}
+				
+				for(String effect : effects){
+					if(effect.equals("weak poison")){
+						newEnemy.setPoisonType(effect);
+					}
+					else if(effect.equals("strong poison")){
+						newEnemy.setPoisonType(effect);
+					}
 				}
 				
 				enemyDictionary.put(name, newEnemy);
@@ -93,11 +103,11 @@ public class MobStore {
 		try{ mobFile = openMobFile(mobFileName); }
 		catch(FileNotFoundException e){ System.out.println(e.getMessage()); }
 		
-		String name = null, ai = null, effect = null;
+		String name = null, ai = null;
 		char glyph = 0;
 		Color color = null;
 		int HP = 0, attack = 0, armor = 0, dodge = 0;
-		String[] tokens = null;
+		String[] tokens = null, effects = null;
 		
 		while(mobFile.hasNextLine()){
 			String tempLine = mobFile.nextLine();
@@ -110,7 +120,7 @@ public class MobStore {
 				attack = Integer.parseInt(tokens[4].trim());
 				armor = Integer.parseInt(tokens[5].trim());
 				dodge = Integer.parseInt(tokens[6].trim());
-				effect = tokens[7].trim();
+				effects = tokens[7].trim().split(", ");
 				ai = tokens[8].trim();
 			}
 		}
@@ -128,6 +138,15 @@ public class MobStore {
 		
 		if(ai.equals("aggressive")){
 			new AggressiveAI(newEnemy, thisLevel.player);
+		}
+		
+		for(String effect : effects){
+			if(effect.equals("weak poison")){
+				newEnemy.setPoisonType(effect);
+			}
+			else if(effect.equals("strong poison")){
+				newEnemy.setPoisonType(effect);
+			}
 		}
 		
 		mobFile.close();
