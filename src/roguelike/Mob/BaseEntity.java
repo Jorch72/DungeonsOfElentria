@@ -75,7 +75,14 @@ public class BaseEntity implements EntityInterface{
 	public void setMaxHP(int amount){ this.maxHP = amount; this.currentHP = amount; }
 	
 	public int currentHP(){ return this.currentHP; }
-	public void setCurrentHP(int amount){ this.currentHP += amount; }
+	public void setCurrentHP(int amount){ 
+		if(this.currentHP + amount > this.maxHP){
+			this.currentHP = this.maxHP;
+		}
+		else{
+			this.currentHP += amount;
+		}
+		}
 	
 	public int attackDamage(){ return this.attackDamage; }
 	public void setAttack(int damage){ this.attackDamage = damage; }
@@ -156,18 +163,31 @@ public class BaseEntity implements EntityInterface{
 			action = "attack";
 			doAttackAction(action, otherEntity, damageAmount);
 			otherEntity.modifyHP(-damageAmount, "killed by a " + this.name());
-			
-			int poisonRoll = RandomGen.rand(1, 100);
-			if(poisonType().equals("weak poison") && poisonRoll >= 80){
-				Poison newPoison = new Poison(1, 10);
-				newPoison.start(otherEntity);
-				otherEntity.effects().add(newPoison);
+			poisonAttack(otherEntity);
+		}
+	}
+	
+	public void poisonAttack(BaseEntity otherEntity){
+		int poisonRoll = RandomGen.rand(1, 100);
+		if(poisonType().equals("weak poison") && poisonRoll >= 75){
+			int totalLength = 0;
+			for(int i = 0; i < 4; i++){
+				int roll = RandomGen.rand(1, 3);
+				totalLength += roll;
 			}
-			else if(poisonType().equals("strong poison") && poisonRoll >= 60){
-				Poison newPoison = new Poison(2, 10);
-				newPoison.start(otherEntity);
-				otherEntity.effects().add(newPoison);
+			Poison newPoison = new Poison(1, totalLength);
+			newPoison.start(otherEntity);
+			otherEntity.effects().add(newPoison);
+		}
+		else if(poisonType().equals("strong poison") && poisonRoll >= 60){
+			int totalLength = 0;
+			for(int i = 0; i < 4; i++){
+				int roll = RandomGen.rand(1, 3);
+				totalLength += roll;
 			}
+			Poison newPoison = new Poison(2, totalLength);
+			newPoison.start(otherEntity);
+			otherEntity.effects().add(newPoison);
 		}
 	}
 	
@@ -232,12 +252,10 @@ public class BaseEntity implements EntityInterface{
 	public void consume(BaseItem item){
 		addEffect(item.effect());
 		inventory().remove(item);
-		update();
 	}
 	
 	public void addEffect(Effect effect){
 		if(effect == null){ return; }
-		
 		effect.start(this);
 		effects.add(effect);
 	}

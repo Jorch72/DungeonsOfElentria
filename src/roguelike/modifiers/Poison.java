@@ -19,7 +19,7 @@ public class Poison implements Effect{
 	}
 	
 	public void update(BaseEntity entity){
-		duration--;
+		this.duration--;
 		entity.modifyHP(-damage, "died of poison.");
 	}
 	

@@ -12,14 +12,14 @@ import asciiPanel.AsciiPanel;
 import roguelike.Items.*;
 import roguelike.Mob.Player;
 
-public class dropScreen implements Screen{
+public class DropScreen implements Screen{
 	private Player player;
 	public String alphabet = "abcdefghijklmnopqrstuvwxyz";
 	public Map <String, Integer> tempList = new TreeMap <String, Integer> ();
 	public List <BaseItem> dropList = new ArrayList <BaseItem> ();
 	private Screen subscreen;
 
-	public dropScreen(Player player){
+	public DropScreen(Player player){
 		this.player = player;
 		initializeTempList();
 	}

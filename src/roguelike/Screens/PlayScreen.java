@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import asciiPanel.AsciiPanel;
-import roguelike.Items.Potion;
 import roguelike.World.World;
 import roguelike.utility.Point;
 
@@ -20,7 +19,6 @@ public class PlayScreen implements Screen {
 	private List <String> tempMessages;
 	private Screen subscreen;
 	private World world;
-	public Potion healingPotion;
 	
 	public PlayScreen(){
 		screenWidth = 88;
@@ -29,8 +27,6 @@ public class PlayScreen implements Screen {
 		messages = new ArrayList <String> ();
 		tempMessages = new ArrayList <String> ();
 		world = new World(screenWidth, mapHeight, messages);
-		healingPotion = new Potion("Potion of healing", '!', AsciiPanel.brightWhite, "potion", 1.0, "weak healing");
-		world.getPlayer().inventory().add(healingPotion);
 		}
 	
 	@Override
@@ -112,8 +108,8 @@ public class PlayScreen implements Screen {
 		}
 		
 		switch(key.getKeyChar()){
-		case 'd':{ subscreen = new dropScreen(world.getPlayer()); break;}
-		case 'D':{ world.getPlayer().drink(healingPotion); break;}
+		case 'd':{ subscreen = new DropScreen(world.getPlayer()); break;}
+		case 'D':{ subscreen = new DrinkScreen(world.getPlayer()); break;}
 		case 'i':{ subscreen = new EquipmentScreen(world.getPlayer()); break;}
 		case 'I':{ subscreen = new InventoryScreen(world.getPlayer()); break;}
 		case 'p':{ world.getPlayer().pickupItem(); break;}

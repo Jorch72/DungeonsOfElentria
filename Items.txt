@@ -1,8 +1,9 @@
 name					:	item type	:	symbol	:	color	:	weight	:	effect
 															
 											POTIONS
-Potion of healing		:	potion		:	!		:	white	:	1.0		:	weak healing
-Potion of weak poison	:	potion		:	!		:	red		:	1.0		:	weak poison
+potion of healing		:	potion		:	!		:	brightWhite	:	1.0		:	weak healing
+potion of strong healing:	potion		:	!		:	brightWhite	:	1.5		:	strong healing
+potion of weak poison	:	potion		:	!		:	red			:	1.0		:	weak poison
 
 name				:	item type	:	symbol	:	color	:	to-Hit	:	Dice	:	attack	:	attack Bonus:	dodge	:	armor	:	weight
 
@@ -22,7 +23,7 @@ name				:	item type	:	symbol	:	color	:	to-Hit	:	damage	:	dodge	:	armor	:	weight
 											CHESTPIECES
 leather armor		:	chestpiece	:	[		:	brown	:		0	:	0		:	5		:	0		:	15.0
 iron breastplate	:	chestpiece	:	[		:	gray	:		0	:	0		:	0		:	2		:	25.0
-Adamantium armor	:	chestpiece	:	8		:	white	:		0	:	0		:	25		:	25		:	2.5
+adamantium armor	:	chestpiece	:	8		:	white	:		0	:	0		:	25		:	25		:	2.5
 
 											HELMETS
 leather helmet		:	helmet		:	[		:	brown	:		0	:	0		:	1		:	0		:	1.5

@@ -131,6 +131,7 @@ public class ItemFactory {
 		colorDictionary.put("darkGreen", AsciiPanel.green.brighter());
 		colorDictionary.put("brown", new Color(139, 69, 19));
 		colorDictionary.put("gray", new Color(211, 211, 211).darker());
+		colorDictionary.put("white", AsciiPanel.white);
 	}
 	
 	public BaseItem newItem(String itemName){
