@@ -7,12 +7,12 @@ import java.util.List;
 import roguelike.Mob.BaseEntity;
 
 public class Inventory {
-	private List <Item> inventory;
+	private List <BaseItem> inventory;
 	private double currentWeight;
 	private BaseEntity owner;
 	
 	public Inventory(BaseEntity owner){
-		inventory = new ArrayList <Item> ();
+		inventory = new ArrayList <BaseItem> ();
 		this.owner = owner;
 	}
 	
@@ -20,9 +20,9 @@ public class Inventory {
 		return currentWeight;
 	}
 	
-	public List<Item> getInventory(){ return this.inventory; }
+	public List<BaseItem> getInventory(){ return this.inventory; }
 	
-	public void add(Item item){
+	public void add(BaseItem item){
 		if(owner.currentCarryWeight() + item.weight() <= owner.maxCarryWeight()){
 			inventory.add(item);
 			Collections.sort(inventory);
@@ -33,7 +33,7 @@ public class Inventory {
 		currentWeight += item.weight();
 	}
 	
-	public void remove(Item item){
+	public void remove(BaseItem item){
 		if(inventory.contains(item)){
 			inventory.remove(item);
 		}
@@ -43,8 +43,8 @@ public class Inventory {
 		currentWeight -= item.weight();
 	}
 	
-	public boolean contains(Item item){
-		for(Item otherItem : inventory){
+	public boolean contains(BaseItem item){
+		for(BaseItem otherItem : inventory){
 			if(item.equals(otherItem)){
 				return true;
 			}

@@ -2,7 +2,6 @@ package roguelike.Screens;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +9,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import asciiPanel.AsciiPanel;
-import roguelike.Items.Item;
+import roguelike.Items.*;
 import roguelike.Mob.Player;
 
 public class EquipScreen implements Screen{
@@ -18,7 +17,7 @@ public class EquipScreen implements Screen{
 	public String alphabet = "abcdefghijklmnopqrstuvwxyz";
 	public String itemToEquip;
 	public TreeMap <String, Integer> tempList = new TreeMap <String, Integer> ();
-	public List <Item> equipList = new ArrayList <Item> ();
+	public List <BaseItem> equipList = new ArrayList <BaseItem> ();
 	
 	public EquipScreen(Player player, String itemToEquip){
 		this.player = player;
@@ -27,7 +26,7 @@ public class EquipScreen implements Screen{
 	}
 	
 	public void initializeTempList(){
-		for(Item possibleItems : player.inventory().getInventory()){
+		for(BaseItem possibleItems : player.inventory().getInventory()){
 			if(possibleItems.itemType().equals(itemToEquip)){
 				Integer frequency = tempList.get(possibleItems.name());
 				if(frequency == null){

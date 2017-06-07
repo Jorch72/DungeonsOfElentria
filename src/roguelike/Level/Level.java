@@ -29,7 +29,7 @@ public class Level{
 	public List <Point> cTR = new ArrayList<Point> ();
 	public List <BaseEntity> mobs = new ArrayList <BaseEntity> ();
 	public List <Point> extraDoors = new ArrayList <Point> ();
-	public List <Item> items = new ArrayList <Item> ();
+	public List <BaseItem> items = new ArrayList <BaseItem> ();
 	public int maxRoomSize;
 	public int minRoomSize;
 	public int numRoomTries;
@@ -85,8 +85,8 @@ public class Level{
 		return null;
 	}
 	
-	public Item checkItems(int x, int y){
-		for(Item item : items){
+	public BaseItem checkItems(int x, int y){
+		for(BaseItem item : items){
 			if(item.x == x && item.y == y){
 				return item;
 			}
@@ -94,7 +94,7 @@ public class Level{
 		return null;
 	}
 	
-	public void removeItem(Item item){
+	public void removeItem(BaseItem item){
 		items.remove(item);
 	}
 	public int getWidth(){
@@ -105,7 +105,7 @@ public class Level{
 	
 	public char glyph(int x, int y){
 		BaseEntity Entity = checkForMob(x, y);
-		Item item = checkItems(x, y);
+		BaseItem item = checkItems(x, y);
 		if(Entity != null){
 			return Entity.glyph();
 		}
@@ -122,7 +122,7 @@ public class Level{
 	
 	public Color color(int x, int y){
 		BaseEntity Entity = checkForMob(x, y);
-		Item item = checkItems(x, y);
+		BaseItem item = checkItems(x, y);
 		if(Entity != null){
 			return Entity.color();
 		}
@@ -160,13 +160,13 @@ public class Level{
 		return map[x][y] == Tile.STAIRS_DOWN;
 	}
 	
-	public void addAtSpecificLocation(Item item, int x, int y){
+	public void addAtSpecificLocation(BaseItem item, int x, int y){
 		item.x = x;
 		item.y = y;
 		items.add(item);
 	}
 	
-	public void addAtEmptyLocation(Item item){
+	public void addAtEmptyLocation(BaseItem item){
 		int x;
 		int y;
 		do{
@@ -181,7 +181,7 @@ public class Level{
 	}
 	
 	public boolean hasItemAlready(int x, int y){
-		for(Item itemToCompare : items){
+		for(BaseItem itemToCompare : items){
 			if(itemToCompare.x == x && itemToCompare.y == y){
 				return true;
 			}

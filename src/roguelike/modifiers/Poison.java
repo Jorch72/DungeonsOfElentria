@@ -3,8 +3,7 @@ package roguelike.modifiers;
 import roguelike.Mob.BaseEntity;
 
 public class Poison implements Effect{
-	private int duration;
-	private int damage;
+	private int duration, damage;
 	public Poison(int damage, int duration){ this.duration = duration; this.damage = damage;}
 	
 	public int damage(){ return this.damage; }

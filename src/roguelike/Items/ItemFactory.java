@@ -16,8 +16,8 @@ public class ItemFactory {
 	public Scanner itemFile = null;
 	public Level thisLevel;
 	public HashMap <String, Color> colorDictionary = new HashMap <String, Color> ();
-	public HashMap <String, Item> itemDictionary = new HashMap <String, Item> ();
-	public List <Item> itemList = new ArrayList <Item> ();
+	public HashMap <String, BaseItem> itemDictionary = new HashMap <String, BaseItem> ();
+	public List <BaseItem> itemList = new ArrayList <BaseItem> ();
 	
 	public ItemFactory(Level level){
 		initializeColors();
@@ -35,12 +35,12 @@ public class ItemFactory {
 			System.out.println(e.getMessage());
 		}
 		
-		String name = null, itemType = null, effect = null;
+		String name = null, itemType = null, effect;
 		char glyph = 0;
 		Color color = null;
 		int toHitBonus = 0, numOfDice = 0, attack = 0, attackBonus = 0, dodge = 0, armor = 0;
 		double weight = 0.0;
-		String[] tokens = null;
+		String[] tokens = null, effects = null;
 		
 		while(itemFile.hasNextLine()){
 			String tempLine = itemFile.nextLine();
@@ -49,12 +49,61 @@ public class ItemFactory {
 				|| (tempLine.contains("WEAPONS"))
 				|| (tempLine.contains("LEGGINGS"))
 				|| (tempLine.contains("BRACERS"))
-				|| (tempLine.contains("BOOTS"))){
+				|| (tempLine.contains("BOOTS"))
+				|| (tempLine.contains("POTIONS"))){
 				continue;
 			}
 			tokens = tempLine.split(":");
-			if(tokens.length == 11){
-			if(!tokens[0].trim().equals("name")){
+			if(tokens.length == 6 && !tokens[0].trim().equals("name")){
+				name = tokens[0].trim();
+				itemType = tokens[1].trim();
+				glyph = tokens[2].trim().charAt(0);
+				color = colorDictionary.get(tokens[3].trim());
+				weight = Double.parseDouble(tokens[4].trim());
+				effect = tokens[5].trim();
+				
+				Potion newPotion = new Potion(name, glyph, color, itemType, weight, effect);
+				itemDictionary.put(name, newPotion);
+				itemList.add(newPotion);
+			}
+			else if(tokens.length == 9 && !tokens[0].trim().equals("name")){
+				name = tokens[0].trim();
+				itemType = tokens[1].trim();
+				glyph = tokens[2].trim().charAt(0);
+				color = colorDictionary.get(tokens[3].trim());
+				toHitBonus = Integer.parseInt(tokens[4].trim());
+				attack = Integer.parseInt(tokens[5].trim());
+				dodge = Integer.parseInt(tokens[6].trim());
+				armor = Integer.parseInt(tokens[7].trim());
+				weight = Double.parseDouble(tokens[8].trim());
+				
+				if(itemType.equals("chestpiece")){
+					Chestpiece newChestpiece = new Chestpiece(name, glyph, color, itemType, weight, toHitBonus, attack, dodge, armor);
+					itemDictionary.put(name, newChestpiece);
+					itemList.add(newChestpiece);
+				}
+				else if(itemType.equals("helmet")){
+					Helmet newHelmet = new Helmet(name, glyph, color, itemType, weight, toHitBonus, attack, dodge, armor);
+					itemDictionary.put(name, newHelmet);
+					itemList.add(newHelmet);
+				}
+				else if(itemType.equals("cuisses")){
+					Cuisses newCuisses = new Cuisses(name, glyph, color, itemType, weight, toHitBonus, attack, dodge, armor);
+					itemDictionary.put(name, newCuisses);
+					itemList.add(newCuisses);
+				}
+				else if(itemType.equals("greaves")){
+					Greaves newGreaves = new Greaves(name, glyph, color, itemType, weight, toHitBonus, attack, dodge, armor);
+					itemDictionary.put(name, newGreaves);
+					itemList.add(newGreaves);
+				}
+				else if(itemType.equals("boots")){
+					Boots newBoots = new Boots(name, glyph, color, itemType, weight, toHitBonus, attack, dodge, armor);
+					itemDictionary.put(name, newBoots);
+					itemList.add(newBoots);
+				}
+			}
+			else if(tokens.length == 11 && !tokens[0].trim().equals("name")){
 				name = tokens[0].trim();
 				itemType = tokens[1].trim();
 				glyph = tokens[2].trim().charAt(0);
@@ -67,28 +116,11 @@ public class ItemFactory {
 				armor = Integer.parseInt(tokens[9].trim());
 				weight = Double.parseDouble(tokens[10].trim());
 				
-				Item newItem = new Item(name, name, glyph, color, itemType, weight);
-				newItem.setToHit(toHitBonus);
-				newItem.setNumOfDice(numOfDice);
-				newItem.setAttack(attack);
-				newItem.setAttackBonus(attackBonus);
-				newItem.setDodge(dodge);
-				newItem.setArmor(armor);
-				
-				itemDictionary.put(name, newItem);
-				itemList.add(newItem);
+				Weapon newWeapon = new Weapon(name, glyph, color, itemType, weight, toHitBonus, numOfDice, attack, attackBonus, dodge, armor);
+				itemDictionary.put(name, newWeapon);
+				itemList.add(newWeapon);
 			}
 		}
-			else if(tokens.length == 6){
-				name = tokens[0].trim();
-				itemType = tokens[1].trim();
-				glyph = tokens[2].trim().charAt(0);
-				color = colorDictionary.get(tokens[3].trim());
-				weight = Double.parseDouble(tokens[4].trim());
-				effect = tokens[5].trim();
-			}
-		}
-		
 		itemFile.close();
 	}
 	
@@ -101,21 +133,49 @@ public class ItemFactory {
 		colorDictionary.put("gray", new Color(211, 211, 211).darker());
 	}
 	
-	public Item newItem(String itemName){
+	public BaseItem newItem(String itemName){
 		try{ itemFile = openItemFile(itemFileName); }
 		catch(FileNotFoundException e){ System.out.println(e.getMessage());}
 		
-		String name = null, itemType = null;
+		String name = null, itemType = null, effect = null;
 		char glyph = 0;
 		Color color = null;
 		int toHitBonus = 0, numOfDice = 0, attack = 0, attackBonus = 0, dodge = 0, armor = 0;
 		double weight = 0.0;
-		String[] tokens = null;
+		String[] tokens = null, effects = null;
 		
 		while(itemFile.hasNextLine()){
 			String tempLine = itemFile.nextLine();
+			if((tempLine.isEmpty()) || (tempLine.contains("CHESTPIECES"))
+				|| (tempLine.contains("HELMETS"))
+				|| (tempLine.contains("WEAPONS"))
+				|| (tempLine.contains("LEGGINGS"))
+				|| (tempLine.contains("BRACERS"))
+				|| (tempLine.contains("BOOTS"))
+				|| (tempLine.contains("POTIONS"))){
+				continue;
+			}
 			tokens = tempLine.split(":");
-			if(tokens[0].trim().equals(itemName)){
+			if(tokens.length == 6 && !tokens[0].trim().equals("name") && (tokens[0].trim().equals(itemName))){
+				name = tokens[0].trim();
+				itemType = tokens[1].trim();
+				glyph = tokens[2].trim().charAt(0);
+				color = colorDictionary.get(tokens[3].trim());
+				weight = Double.parseDouble(tokens[4].trim());
+				effect = tokens[5].trim();
+			}
+			else if(tokens.length == 9 && !tokens[0].trim().equals("name") && (tokens[0].trim().equals(itemName))){
+				name = tokens[0].trim();
+				itemType = tokens[1].trim();
+				glyph = tokens[2].trim().charAt(0);
+				color = colorDictionary.get(tokens[3].trim());
+				toHitBonus = Integer.parseInt(tokens[4].trim());
+				attack = Integer.parseInt(tokens[5].trim());
+				dodge = Integer.parseInt(tokens[6].trim());
+				armor = Integer.parseInt(tokens[7].trim());
+				weight = Double.parseDouble(tokens[8].trim());
+			}
+			else if(tokens.length == 11 && !tokens[0].trim().equals("name") && (tokens[0].trim().equals(itemName))){
 				name = tokens[0].trim();
 				itemType = tokens[1].trim();
 				glyph = tokens[2].trim().charAt(0);
@@ -129,17 +189,38 @@ public class ItemFactory {
 				weight = Double.parseDouble(tokens[10].trim());
 			}
 		}
-		
-		Item newItem = new Item(name, name, glyph, color, itemType, weight);
-		newItem.setToHit(toHitBonus);
-		newItem.setNumOfDice(numOfDice);
-		newItem.setAttack(attack);
-		newItem.setAttackBonus(attackBonus);
-		newItem.setDodge(dodge);
-		newItem.setArmor(armor);
-		itemFile.close();
-		return newItem;
-		
+		if(itemType.equals("chestpiece")){
+			Chestpiece newChestpiece = new Chestpiece(name, glyph, color, itemType, weight, toHitBonus, attack, dodge, armor);
+			return newChestpiece;
+		}
+		else if(itemType.equals("helmet")){
+			Helmet newHelmet = new Helmet(name, glyph, color, itemType, weight, toHitBonus, attack, dodge, armor);
+			return newHelmet;
+		}
+		else if(itemType.equals("cuisses")){
+			Cuisses newCuisses = new Cuisses(name, glyph, color, itemType, weight, toHitBonus, attack, dodge, armor);
+			return newCuisses;
+		}
+		else if(itemType.equals("greaves")){
+			Greaves newGreaves = new Greaves(name, glyph, color, itemType, weight, toHitBonus, attack, dodge, armor);
+			return newGreaves;
+		}
+		else if(itemType.equals("boots")){
+			Boots newBoots = new Boots(name, glyph, color, itemType, weight, toHitBonus, attack, dodge, armor);
+			newBoots.name();
+			return newBoots;
+		}
+		else if(itemType.equals("potion")){
+			Potion newPotion = new Potion(name, glyph, color, itemType, weight, effect);
+			return newPotion;
+		}
+		else if(itemType.equals("weapon")){
+			Weapon newWeapon = new Weapon(name, glyph, color, itemType, weight, toHitBonus, numOfDice, attack, attackBonus, dodge, armor);
+			return newWeapon;
+		}
+		else{
+			return null;
+		}
 	}
 	
 	public void newItemAtRandomLocation(){

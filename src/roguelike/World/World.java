@@ -90,13 +90,13 @@ public class World {
 	}
 	
 	public void createRandomItems(){
-		for(int i = 0; i < 10; i++){
+		for(int i = 0; i < 25; i++){
 			itemStore.newItemAtRandomLocation();
 		}
 	}
 	
 	public void initializeMobsOnLevel(){
-		for(int i = 0; i < 50; i++){
+		for(int i = 0; i < 25; i++){
 			int roll = RandomGen.rand(0, mobStore.enemyDictionary.size() - 1);
 			mobStore.newEnemy(mobStore.enemyList.get(roll).name());
 		}

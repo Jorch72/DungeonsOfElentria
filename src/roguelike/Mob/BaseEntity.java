@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import roguelike.AI.BaseAI;
+import roguelike.Items.BaseItem;
 import roguelike.Items.Inventory;
-import roguelike.Items.Item;
 import roguelike.Level.Level;
 import roguelike.levelBuilding.Tile;
 import roguelike.modifiers.*;
@@ -97,7 +97,7 @@ public class BaseEntity implements EntityInterface{
 	}
 	
 	public void pickupItem(){
-		Item itemToPickUp = this.level().checkItems(this.x, this.y);
+		BaseItem itemToPickUp = this.level().checkItems(this.x, this.y);
 		if(itemToPickUp != null){
 			this.notify("You pick up the %s.", itemToPickUp.name());
 			inventory().add(itemToPickUp);
@@ -108,7 +108,7 @@ public class BaseEntity implements EntityInterface{
 		}
 	}
 	
-	public void dropItem(Item itemToDrop){
+	public void dropItem(BaseItem itemToDrop){
 		this.level().addAtSpecificLocation(itemToDrop, this.x, this.y);
 		this.inventory().remove(itemToDrop);
 		this.notify("You drop %s", itemToDrop.name());
@@ -164,7 +164,7 @@ public class BaseEntity implements EntityInterface{
 				otherEntity.effects().add(newPoison);
 			}
 			else if(poisonType().equals("strong poison") && poisonRoll >= 60){
-				Poison newPoison = new Poison(2, 15);
+				Poison newPoison = new Poison(2, 10);
 				newPoison.start(otherEntity);
 				otherEntity.effects().add(newPoison);
 			}
@@ -222,6 +222,24 @@ public class BaseEntity implements EntityInterface{
 		}
 		
 		effects.removeAll(done);
+	}
+	
+	public void drink(BaseItem item){
+		doAction("drink a " + item.name());
+		consume(item);
+	}
+	
+	public void consume(BaseItem item){
+		addEffect(item.effect());
+		inventory().remove(item);
+		update();
+	}
+	
+	public void addEffect(Effect effect){
+		if(effect == null){ return; }
+		
+		effect.start(this);
+		effects.add(effect);
 	}
 	
 	public void update(){ 

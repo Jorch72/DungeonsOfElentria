@@ -19,9 +19,9 @@ public class EquipmentScreen implements Screen{
 		String stats = String.format("Con: %s Str: %s Dex: %s Int: %s Wis: %s Cha: %s", player.constitution(), player.strength(), player.dexterity(), player.intelligence(), player.wisdom(), player.charisma());
 		String weight = String.format("Currently Carrying: %s      Carrying Capacity: %s", player.currentCarryWeight(), player.maxCarryWeight());
 		String helmet = String.format(" a - %-15s : - %s", "Helmet", player.helmetString());
-		String armor = String.format(" b - %-15s : - %s", "Chest Piece", player.armorString());
+		String armor = String.format(" b - %-15s : - %s", "Chest Piece", player.chestpieceString());
 		String rightHand = String.format(" c - %-15s : - %s", "Right Hand", player.weaponString());
-		String legs = String.format(" d - %-15s : - %s", "Cuisses", player.leggingsString());
+		String legs = String.format(" d - %-15s : - %s", "Cuisses", player.cuissesString());
 		String ankles = String.format(" e - %-15s : - %s", "Greaves", player.greavesString());
 		String boots = String.format(" f - %-15s : - %s", "boots", player.bootsString());
 		terminal.clear(' ', 0, 0, 88, 28);
@@ -54,7 +54,7 @@ public class EquipmentScreen implements Screen{
 		}
 		case KeyEvent.VK_A: {
 			if(player.helmet() != null){
-				player.unequipItem(player.helmet());
+				player.unequipHelmet();
 			}
 			else{
 				subscreen = new EquipScreen(player, "helmet");
@@ -62,17 +62,17 @@ public class EquipmentScreen implements Screen{
 			break;
 		}
 		case KeyEvent.VK_B: {
-			if(player.chest() != null){
-				player.unequipItem(player.chest());
+			if(player.chestpiece() != null){
+				player.unequipChestpiece();
 			}
 			else{
-				subscreen = new EquipScreen(player, "chest");
+				subscreen = new EquipScreen(player, "chestpiece");
 			}
 			break;
 		}
 		case KeyEvent.VK_C: {
 			if(player.weapon() != null){
-				player.unequipItem(player.weapon());
+				player.unequipWeapon();
 			}
 			else{
 				subscreen = new EquipScreen(player, "weapon");
@@ -80,29 +80,29 @@ public class EquipmentScreen implements Screen{
 			break;
 		}
 		case KeyEvent.VK_D: {
-			if(player.legs() != null){
-				player.unequipItem(player.legs());
+			if(player.cuisses() != null){
+				player.unequipCuisses();
 			}
 			else{
-				subscreen = new EquipScreen(player, "legs");
+				subscreen = new EquipScreen(player, "cuisses");
 			}
 			break;
 		}
 		case KeyEvent.VK_E: {
 			if(player.greaves() != null){
-				player.unequipItem(player.greaves());
+				player.unequipGreaves();
 			}
 			else{
-				subscreen = new EquipScreen(player, "shins");
+				subscreen = new EquipScreen(player, "greaves");
 			}
 			break;
 		}
 		case KeyEvent.VK_F: {
 			if(player.boots() != null){
-				player.unequipItem(player.boots());
+				player.unequipBoots();
 			}
 			else{
-				subscreen = new EquipScreen(player, "feet");
+				subscreen = new EquipScreen(player, "boots");
 			}
 			break;
 		}

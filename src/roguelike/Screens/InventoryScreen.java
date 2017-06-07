@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import asciiPanel.AsciiPanel;
-import roguelike.Items.Item;
+import roguelike.Items.*;
 import roguelike.Mob.Player;
 
 public class InventoryScreen implements Screen{
@@ -22,7 +22,7 @@ public class InventoryScreen implements Screen{
 	}
 	
 	public void initializeTempList(){
-		for(Item itemToRead : player.inventory().getInventory()){
+		for(BaseItem itemToRead : player.inventory().getInventory()){
 			Integer frequency = tempList.get(itemToRead.name());
 			if(frequency == null){
 				tempList.put(itemToRead.name(), new Integer(1));
