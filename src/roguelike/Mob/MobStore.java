@@ -14,8 +14,8 @@ import roguelike.AI.playerAi;
 import roguelike.Level.Level;
 
 public class MobStore {
-	public String mobFileName = "Mobs.txt";
-	public String playerFileName = "HumanPlayer.txt";
+	public String mobFileName = "assets/Mobs.txt";
+	public String playerFileName = "assets/HumanPlayer.txt";
 	public Scanner playerFile = null;
 	public Scanner mobFile = null;
 	public Level thisLevel;

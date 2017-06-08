@@ -12,7 +12,7 @@ import roguelike.Level.Level;
 import roguelike.utility.RandomGen;
 
 public class ItemFactory {
-	public String itemFileName = "Items.txt";
+	public String itemFileName = "assets/Items.txt";
 	public Scanner itemFile = null;
 	public Level thisLevel;
 	public HashMap <String, Color> colorDictionary = new HashMap <String, Color> ();

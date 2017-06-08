@@ -3,7 +3,9 @@ name					:	item type	:	symbol	:	color	:	weight	:	effect
 											POTIONS
 potion of healing		:	potion		:	!		:	brightWhite	:	1.0		:	weak healing
 potion of strong healing:	potion		:	!		:	brightWhite	:	1.5		:	strong healing
+
 potion of weak poison	:	potion		:	!		:	red			:	1.0		:	weak poison
+potion of strong poison :	potion		:	!		:	red			:	1.0		:	strong poison
 
 name				:	item type	:	symbol	:	color	:	to-Hit	:	Dice	:	attack	:	attack Bonus:	dodge	:	armor	:	weight
 
