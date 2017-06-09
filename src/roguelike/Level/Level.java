@@ -17,7 +17,7 @@ public class Level{
 	public int dangerLevel;
 	public String levelID;
 	public int levelNumber;
-	public Point start, current;
+	public Point start, current, cave;
 	public List <Point> frontier = new ArrayList <Point> ();
 	public List <Point> toRemove = new ArrayList <Point> ();
 	public List <Point> deadEnds = new ArrayList <Point> ();
@@ -181,6 +181,12 @@ public class Level{
 		item.x = x;
 		item.y = y;
 		items.add(item);
+	}
+	
+	public void addAtSpecificLocation(BaseEntity entity, int x, int y){
+		entity.x = x;
+		entity.y = y;
+		mobs.add(entity);
 	}
 	
 	public void addAtEmptyLocation(BaseItem item){

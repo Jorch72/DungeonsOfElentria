@@ -8,6 +8,7 @@ import roguelike.Level.Level;
 import roguelike.Mob.MobStore;
 import roguelike.Mob.Player;
 import roguelike.levelBuilding.Tile;
+import roguelike.utility.Point;
 import roguelike.utility.RandomGen;
 
 public class World {
@@ -20,6 +21,7 @@ public class World {
 	private HashMap <Integer, Level> levels = new HashMap <Integer, Level> ();
 	private String surface = "assets/surface.txt";
 	private Scanner surfaceFile = null;
+	private Point entranceCoordinates;
 	
 	public MobStore getMobStore() {return mobStore;}
 	public void setMobStore(MobStore mobStore) {this.mobStore = mobStore;}
@@ -96,12 +98,6 @@ public class World {
 			index++;
 		}
 		
-		for (int x = 0; x < this.screenWidth; x++){
-			for(int y = 0; y < this.mapHeight; y++){
-				System.out.print(surfaceMap[x][y].glyph());
-			}
-		}
-		
 		return surfaceMap;
 	}
 	
@@ -112,7 +108,12 @@ public class World {
 			levels.get(currentLevel.levelNumber).mobs.remove(player);
 			setCurrentLevel(levels.get(getCurrentLevel().levelNumber - 1));
 			getCurrentLevel().setPlayer(player);
-			getCurrentLevel().addAtEmptyLocation(player);
+			if(getCurrentLevel().levelNumber == 1){
+				getCurrentLevel().addAtSpecificLocation(player, entranceCoordinates.x, entranceCoordinates.y);
+			}
+			else{
+				getCurrentLevel().addAtDownStaircase(player);
+			}
 		}
 		else{
 			player.notify("There's no way up from here.");
@@ -126,15 +127,18 @@ public class World {
 			levels.get(currentLevel.levelNumber).mobs.remove(player);
 			setCurrentLevel(levels.get(getCurrentLevel().levelNumber + 1));
 			getCurrentLevel().setPlayer(player);
-			getCurrentLevel().addAtEmptyLocation(player);
+			getCurrentLevel().addAtUpStaircase(player);
 		}
 		else{
+			if(currentLevel.levelNumber == 1){
+				entranceCoordinates = new Point(player.x, player.y);
+			}
 			Level tempLevel = new Level(screenWidth, mapHeight);
 			tempLevel.buildLevel();
 			mobStore = new MobStore(tempLevel, messages);
 			itemStore = new ItemFactory(tempLevel);
 			tempLevel.setPlayer(player);
-			tempLevel.addAtEmptyLocation(player);
+			tempLevel.addAtUpStaircase(player);
 			player.setLevel(tempLevel);
 			tempLevel.mobs.add(player);
 			currentLevel.remove(player);

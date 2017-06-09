@@ -6,6 +6,7 @@ import java.util.List;
 
 import asciiPanel.AsciiPanel;
 import roguelike.World.World;
+import roguelike.levelBuilding.Tile;
 import roguelike.utility.Point;
 
 public class PlayScreen implements Screen {
@@ -113,8 +114,25 @@ public class PlayScreen implements Screen {
 		case 'i':{ subscreen = new EquipmentScreen(world.getPlayer()); break;}
 		case 'I':{ subscreen = new InventoryScreen(world.getPlayer()); break;}
 		case 'p':{ world.getPlayer().pickupItem(); break;}
-		case '+':{ world.goDownALevel(); break;}
-		case '-':{ world.goUpALevel(); break;}
+		case '>':{
+			if(world.getCurrentLevel().tile(world.getPlayer().x, world.getPlayer().y) == Tile.STAIRS_DOWN
+					|| world.getCurrentLevel().tile(world.getPlayer().x, world.getPlayer().y) == Tile.CAVE){
+				world.goDownALevel(); 
+			}
+			else{
+				world.getPlayer().notify("There's no way to go down from here.");
+			}
+			break;
+			}
+		case '<':{ 
+			if(world.getCurrentLevel().tile(world.getPlayer().x, world.getPlayer().y) == Tile.STAIRS_UP){
+				world.goUpALevel(); 
+			}
+			else{
+				world.getPlayer().notify("There's no way to go up from here.");
+			}
+			break;
+			}
 		}
 		}
 		
