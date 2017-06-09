@@ -4,6 +4,13 @@ import java.awt.Color;
 import asciiPanel.AsciiPanel;
 
 public enum Tile {
+	WATER('=', AsciiPanel.brightBlue, "water"),
+	MOUNTAIN('^', AsciiPanel.white, "mountain"),
+	GRASS('"', AsciiPanel.brightGreen, "grass"),
+	FOREST('&', AsciiPanel.green, "forest"),
+	CAVE('*', Color.darkGray, "cave"),
+	START('X', Color.lightGray, "start"),
+	ROAD('.', new Color(139, 69, 19), "road"),
     FLOOR('.', AsciiPanel.brightGreen, "stone floor"),
     WALL('#', AsciiPanel.brightBlack, "wall"),
     PERM_WALL('#', AsciiPanel.brightBlack, "wall"),
@@ -11,6 +18,7 @@ public enum Tile {
 	STAIRS_DOWN('>', AsciiPanel.white, "stairs down"),
     STAIRS_UP('<', AsciiPanel.white, "stairs up"),
 	DOOR_CLOSED('+', AsciiPanel.white, "door"),
+	UNKNOWN(' ', AsciiPanel.white, "unknown"),
 	DOOR_OPEN('/', AsciiPanel.white, "door");
 
     private char glyph;
@@ -26,6 +34,10 @@ public enum Tile {
         this.glyph = glyph;
         this.color = color;
         this.name = name;
+    }
+    
+    public boolean isGround(){
+    	return this != WALL && this != PERM_WALL && this != BOUNDS && this != DOOR_CLOSED;
     }
     
     public boolean canEnter(){

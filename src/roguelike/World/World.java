@@ -1,10 +1,14 @@
 package roguelike.World;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 import roguelike.Items.ItemFactory;
 import roguelike.Level.Level;
+import roguelike.Mob.FieldOfView;
 import roguelike.Mob.MobStore;
 import roguelike.Mob.Player;
+import roguelike.levelBuilding.Tile;
 import roguelike.utility.RandomGen;
 
 public class World {
@@ -13,8 +17,15 @@ public class World {
 	private MobStore mobStore;
 	private ItemFactory itemStore;
 	private Level currentLevel;
+	private FieldOfView fieldOfView;
 	public List <String> messages = new ArrayList <String> ();
 	private HashMap <Integer, Level> levels = new HashMap <Integer, Level> ();
+	private HashMap <Integer, FieldOfView> fields = new HashMap <Integer, FieldOfView> ();
+	private String surface = "assets/surface.txt";
+	private Scanner surfaceFile = null;
+	
+	public FieldOfView fieldOfView(){ return this.fieldOfView; }
+	public HashMap <Integer, FieldOfView> fields(){ return this.fields; }
 	
 	public MobStore getMobStore() {return mobStore;}
 	public void setMobStore(MobStore mobStore) {this.mobStore = mobStore;}
@@ -36,16 +47,69 @@ public class World {
 		this.screenWidth = screenWidth;
 		this.mapHeight = mapHeight;
 		this.messages = messages;
-		currentLevel = new  Level(screenWidth, mapHeight);
-		currentLevel.buildLevel();
-		mobStore = new MobStore(currentLevel, messages);
+		currentLevel = new Level(initializeSurfaceLevel(), screenWidth, mapHeight);
+		fieldOfView = new FieldOfView(currentLevel);
+		mobStore = new MobStore(currentLevel, messages, fieldOfView);
 		itemStore = new ItemFactory(currentLevel);
 		player = mobStore.newPlayer();
 		currentLevel.setPlayer(player);
 		currentLevel.levelNumber = 1;
-		initializeMobsOnLevel();
-		createRandomItems();
 		levels.put(currentLevel.levelNumber, currentLevel);
+	}
+	
+	public Tile[][] initializeSurfaceLevel(){
+		try{ surfaceFile = openFile(surface); }
+		catch(FileNotFoundException e){ System.out.println(e.getMessage()); }
+		
+		String levelLine = null;
+		String[] tokens = null;
+		Tile[][] surfaceMap = new Tile[this.screenWidth][this.mapHeight];
+		
+		int index = 0;
+		
+		for (int x = 0; x < this.screenWidth; x++){
+			for(int y = 0; y < this.mapHeight; y++){
+				surfaceMap[x][y] = Tile.WALL;
+			}
+		}
+		
+		while(surfaceFile.hasNextLine() && index < 29){
+			levelLine = surfaceFile.nextLine();
+			tokens = levelLine.split("");
+			for(int i = 0; i < tokens.length; i++){
+				int x = Integer.parseInt(tokens[i]);
+				if(x == 0){
+					surfaceMap[i][index] = Tile.WATER;
+				}
+				else if(x == 1){
+					surfaceMap[i][index] = Tile.MOUNTAIN;
+				}
+				else if(x == 2){
+					surfaceMap[i][index] = Tile.GRASS;
+				}
+				else if(x == 3){
+					surfaceMap[i][index] = Tile.FOREST;
+				}
+				else if(x == 4){
+					surfaceMap[i][index] = Tile.ROAD;
+				}
+				else if(x == 5){
+					surfaceMap[i][index] = Tile.CAVE;
+				}
+				else if(x == 6){
+					surfaceMap[i][index] = Tile.START;
+				}
+			}
+			index++;
+		}
+		
+		for (int x = 0; x < this.screenWidth; x++){
+			for(int y = 0; y < this.mapHeight; y++){
+				System.out.print(surfaceMap[x][y].glyph());
+			}
+		}
+		
+		return surfaceMap;
 	}
 	
 	public void goUpALevel(){
@@ -56,6 +120,7 @@ public class World {
 			setCurrentLevel(levels.get(getCurrentLevel().levelNumber - 1));
 			getCurrentLevel().setPlayer(player);
 			getCurrentLevel().addAtEmptyLocation(player);
+			fieldOfView = fields.get(getCurrentLevel().levelNumber);
 		}
 		else{
 			player.notify("There's no way up from here.");
@@ -70,11 +135,13 @@ public class World {
 			setCurrentLevel(levels.get(getCurrentLevel().levelNumber + 1));
 			getCurrentLevel().setPlayer(player);
 			getCurrentLevel().addAtEmptyLocation(player);
+			fieldOfView = fields.get(getCurrentLevel().levelNumber);
 		}
 		else{
 			Level tempLevel = new Level(screenWidth, mapHeight);
 			tempLevel.buildLevel();
-			mobStore = new MobStore(tempLevel, messages);
+			fieldOfView = new FieldOfView(tempLevel);
+			mobStore = new MobStore(tempLevel, messages, fieldOfView);
 			itemStore = new ItemFactory(tempLevel);
 			tempLevel.setPlayer(player);
 			tempLevel.addAtEmptyLocation(player);
@@ -86,6 +153,7 @@ public class World {
 			initializeMobsOnLevel();
 			createRandomItems();
 			levels.put(currentLevel.levelNumber, currentLevel);
+			fields.put(currentLevel.levelNumber, fieldOfView);
 		}
 	}
 	
@@ -100,5 +168,11 @@ public class World {
 			int roll = RandomGen.rand(0, mobStore.enemyDictionary.size() - 1);
 			mobStore.newEnemy(mobStore.enemyList.get(roll).name());
 		}
+	}
+	
+	private static Scanner openFile(String fileName) throws FileNotFoundException{
+		File file = new File(fileName);
+		Scanner scanner = new Scanner(file);
+		return scanner;
 	}
 }

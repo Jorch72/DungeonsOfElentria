@@ -51,6 +51,20 @@ public class Level{
 		this.levelID = "Dungeon Floor";
 		this.dangerLevel = 0;}
 
+	public Level(Tile[][] map, int screenWidth, int mapHeight){
+		this.width = screenWidth;
+		this.height = mapHeight;
+		this.levelNumber = 0;
+		this.map = map;
+		this.minRoomSize = 3;
+		this.maxRoomSize = 9;
+		this.numRoomTries = 50;
+		this.connected = new boolean[width][height];
+		this.roomFlag = new boolean[width][height];
+		this.levelID = "Surface";
+		this.dangerLevel = 0;
+	}
+	
 	public Level getLevel(){
 		return this;
 	}
@@ -117,7 +131,10 @@ public class Level{
 	
 	public boolean isGround(int x, int y){
 		return ((map[x][y] == Tile.FLOOR) || (map[x][y] == Tile.STAIRS_DOWN)
-				|| (map[x][y] == Tile.STAIRS_UP) || (map[x][y] == Tile.DOOR_OPEN)); 
+				|| (map[x][y] == Tile.STAIRS_UP) || (map[x][y] == Tile.DOOR_OPEN)
+				|| (map[x][y] == Tile.GRASS) || (map[x][y] == Tile.FOREST)
+				|| (map[x][y] == Tile.ROAD) || (map[x][y] == Tile.START)
+				|| (map[x][y] == Tile.CAVE)); 
 	}
 	
 	public Color color(int x, int y){
