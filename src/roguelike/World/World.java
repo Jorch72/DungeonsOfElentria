@@ -5,7 +5,6 @@ import java.util.*;
 
 import roguelike.Items.ItemFactory;
 import roguelike.Level.Level;
-import roguelike.Mob.FieldOfView;
 import roguelike.Mob.MobStore;
 import roguelike.Mob.Player;
 import roguelike.levelBuilding.Tile;
@@ -17,15 +16,10 @@ public class World {
 	private MobStore mobStore;
 	private ItemFactory itemStore;
 	private Level currentLevel;
-	private FieldOfView fieldOfView;
 	public List <String> messages = new ArrayList <String> ();
 	private HashMap <Integer, Level> levels = new HashMap <Integer, Level> ();
-	private HashMap <Integer, FieldOfView> fields = new HashMap <Integer, FieldOfView> ();
 	private String surface = "assets/surface.txt";
 	private Scanner surfaceFile = null;
-	
-	public FieldOfView fieldOfView(){ return this.fieldOfView; }
-	public HashMap <Integer, FieldOfView> fields(){ return this.fields; }
 	
 	public MobStore getMobStore() {return mobStore;}
 	public void setMobStore(MobStore mobStore) {this.mobStore = mobStore;}
@@ -48,8 +42,7 @@ public class World {
 		this.mapHeight = mapHeight;
 		this.messages = messages;
 		currentLevel = new Level(initializeSurfaceLevel(), screenWidth, mapHeight);
-		fieldOfView = new FieldOfView(currentLevel);
-		mobStore = new MobStore(currentLevel, messages, fieldOfView);
+		mobStore = new MobStore(currentLevel, messages);
 		itemStore = new ItemFactory(currentLevel);
 		player = mobStore.newPlayer();
 		currentLevel.setPlayer(player);
@@ -120,7 +113,6 @@ public class World {
 			setCurrentLevel(levels.get(getCurrentLevel().levelNumber - 1));
 			getCurrentLevel().setPlayer(player);
 			getCurrentLevel().addAtEmptyLocation(player);
-			fieldOfView = fields.get(getCurrentLevel().levelNumber);
 		}
 		else{
 			player.notify("There's no way up from here.");
@@ -135,13 +127,11 @@ public class World {
 			setCurrentLevel(levels.get(getCurrentLevel().levelNumber + 1));
 			getCurrentLevel().setPlayer(player);
 			getCurrentLevel().addAtEmptyLocation(player);
-			fieldOfView = fields.get(getCurrentLevel().levelNumber);
 		}
 		else{
 			Level tempLevel = new Level(screenWidth, mapHeight);
 			tempLevel.buildLevel();
-			fieldOfView = new FieldOfView(tempLevel);
-			mobStore = new MobStore(tempLevel, messages, fieldOfView);
+			mobStore = new MobStore(tempLevel, messages);
 			itemStore = new ItemFactory(tempLevel);
 			tempLevel.setPlayer(player);
 			tempLevel.addAtEmptyLocation(player);
@@ -153,7 +143,6 @@ public class World {
 			initializeMobsOnLevel();
 			createRandomItems();
 			levels.put(currentLevel.levelNumber, currentLevel);
-			fields.put(currentLevel.levelNumber, fieldOfView);
 		}
 	}
 	
