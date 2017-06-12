@@ -1,7 +1,8 @@
 package roguelike.Screens;
 
-import java.awt.event.KeyEvent;
 import asciiPanel.AsciiPanel;
+
+import java.awt.event.KeyEvent;
 
 public class StartScreen implements Screen {
 	

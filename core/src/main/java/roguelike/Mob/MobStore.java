@@ -1,17 +1,17 @@
 package roguelike.Mob;
 
-import java.awt.Color;
+import asciiPanel.AsciiPanel;
+import roguelike.AI.AggressiveAI;
+import roguelike.AI.playerAi;
+import roguelike.Level.Level;
+
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
-
-import asciiPanel.AsciiPanel;
-import roguelike.AI.AggressiveAI;
-import roguelike.AI.playerAi;
-import roguelike.Level.Level;
 
 public class MobStore {
 	public String mobFileName = "assets/Mobs.txt";

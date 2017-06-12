@@ -1,15 +1,24 @@
 package roguelike.Level;
 
-import java.awt.Color;
-import java.util.*;
-import roguelike.utility.*;
-import roguelike.Items.*;
+import roguelike.Items.BaseItem;
 import roguelike.Mob.BaseEntity;
 import roguelike.Mob.Player;
-import roguelike.levelBuilding.*;
+import roguelike.levelBuilding.Door;
+import roguelike.levelBuilding.Room;
+import roguelike.levelBuilding.Tile;
+import roguelike.utility.Point;
+import roguelike.utility.RandomGen;
+import squidpony.squidmath.Coord;
+import squidpony.squidmath.OrderedMap;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Level{
 	public Tile[][] map;
+	public char[][] pathMap;
 	public Point stairsDown;
 	public Point stairsUp;
 	public int width;
@@ -27,7 +36,7 @@ public class Level{
 	public List <Room> rooms = new ArrayList <Room> ();
 	public List <Door> doors = new ArrayList <Door> ();
 	public List <Point> cTR = new ArrayList<Point> ();
-	public List <BaseEntity> mobs = new ArrayList <BaseEntity> ();
+	public OrderedMap <Coord, BaseEntity> mobs = new OrderedMap<Coord, BaseEntity> ();
 	public List <Point> extraDoors = new ArrayList <Point> ();
 	public List <BaseItem> items = new ArrayList <BaseItem> ();
 	public int maxRoomSize;
@@ -41,6 +50,7 @@ public class Level{
 	public Level(int width, int height){
 		this.width = width;
 		this.height = height;
+		pathMap = new char[width][height];
 		this.levelNumber = 0;
 		map = new Tile[width][height];
 		this.minRoomSize = 3;
@@ -49,11 +59,13 @@ public class Level{
 		this.connected = new boolean[width][height];
 		this.roomFlag = new boolean[width][height];
 		this.levelID = "Dungeon Floor";
-		this.dangerLevel = 0;}
+		this.dangerLevel = 0;
+		}
 
 	public Level(Tile[][] map, int screenWidth, int mapHeight){
 		this.width = screenWidth;
 		this.height = mapHeight;
+		pathMap = new char[width][height];
 		this.levelNumber = 0;
 		this.map = map;
 		this.minRoomSize = 3;
@@ -63,6 +75,7 @@ public class Level{
 		this.roomFlag = new boolean[width][height];
 		this.levelID = "Surface";
 		this.dangerLevel = 0;
+		setPathFinding();
 	}
 	
 	public Level getLevel(){
@@ -86,17 +99,30 @@ public class Level{
 	}
 	
 	public void update(){
-		List <BaseEntity> toUpdate = new ArrayList <BaseEntity> (mobs);
-		for(BaseEntity bE : toUpdate){
+		//List <BaseEntity> toUpdate = new ArrayList <BaseEntity> (mobs);
+		for (int i = 0; i < mobs.size(); i++) {
+			if(mobs.getAt(i) == null)
+				continue;
+			mobs.getAt(i).update();
+		}
+		/*
+		for(BaseEntity bE : mobs.values()){
+			if(bE == null)
+				continue;
 			bE.update();
 		}
+		*/
 	}
 	
 	public BaseEntity checkForMob(int x, int y){
-		for(BaseEntity bE : mobs){
+		// a Map's get() returns null if nothing is found, otherwise it gets the value, and here that's the mob
+		return mobs.get(Coord.get(x,y));
+		/* // not needed any more
+		for(BaseEntity bE : mobs.values()){
 			if(bE.x == x && bE.y == y){ return bE; }
 		}
 		return null;
+		*/
 	}
 	
 	public BaseItem checkItems(int x, int y){
@@ -157,7 +183,16 @@ public class Level{
 		placeAllDoors();
 		removeAllDeadEnds();
 		placeStairs();
+		setPathFinding();
 		return this;}
+	
+	public void setPathFinding() {
+		for(int x = 0; x < this.width; x++) {
+			for(int y = 0; y < this.height; y++) {
+				pathMap[x][y] = map[x][y].glyph();
+			}
+		}
+	}
 	
 	public void removeAllDeadEnds(){
 		for(int i = 0; i < 100; i++){
@@ -186,7 +221,7 @@ public class Level{
 	public void addAtSpecificLocation(BaseEntity entity, int x, int y){
 		entity.x = x;
 		entity.y = y;
-		mobs.add(entity);
+		mobs.put(Coord.get(x, y), entity);
 	}
 	
 	public void addAtEmptyLocation(BaseItem item){
@@ -223,19 +258,19 @@ public class Level{
 		
 		Entity.x = x;
 		Entity.y = y;
-		mobs.add(Entity);
+		mobs.put(Coord.get(x, y), Entity);
 	}
 	
 	public void addAtUpStaircase(BaseEntity Entity){
 		Entity.x = stairsUp.x;
 		Entity.y = stairsUp.y;
-		mobs.add(Entity);
+		mobs.put(Coord.get(Entity.x, Entity.y), Entity);
 	}
 	
 	public void addAtDownStaircase(BaseEntity Entity){
 		Entity.x = stairsDown.x;
 		Entity.y = stairsDown.y;
-		mobs.add(Entity);
+		mobs.put(Coord.get(Entity.x, Entity.y), Entity);
 	}
 	
 	public void placeStairs(){

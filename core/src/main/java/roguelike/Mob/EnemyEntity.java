@@ -1,8 +1,8 @@
 package roguelike.Mob;
 
-import java.awt.Color;
-
 import roguelike.Level.Level;
+
+import java.awt.*;
 
 public class EnemyEntity extends BaseEntity{
 	

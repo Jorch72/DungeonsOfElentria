@@ -1,16 +1,17 @@
 package roguelike.Mob;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-
 import roguelike.AI.BaseAI;
 import roguelike.Items.BaseItem;
 import roguelike.Items.Inventory;
 import roguelike.Level.Level;
 import roguelike.levelBuilding.Tile;
-import roguelike.modifiers.*;
+import roguelike.modifiers.Effect;
+import roguelike.modifiers.Poison;
 import roguelike.utility.RandomGen;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BaseEntity implements EntityInterface{
 	private Level level;
@@ -211,7 +212,7 @@ public class BaseEntity implements EntityInterface{
 	}
 	
 	public void doAction(String message, Object...params){
-		for(BaseEntity otherEntity : this.level.mobs){
+		for(BaseEntity otherEntity : this.level.mobs.values()){
 			if(otherEntity == this){ otherEntity.notify("You " + message, params); }
 			else{ otherEntity.notify(String.format("The %s %s.", name(), makeSecondPerson(message)), params); }
 		}

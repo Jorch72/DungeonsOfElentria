@@ -1,10 +1,10 @@
 package roguelike.Mob;
 
-import java.awt.Color;
-
 import roguelike.Items.*;
 import roguelike.Level.Level;
 import roguelike.utility.RandomGen;
+
+import java.awt.*;
 
 public class Player extends BaseEntity{
 	

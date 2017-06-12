@@ -1,13 +1,13 @@
 package roguelike.Screens;
 
-import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.List;
-
 import asciiPanel.AsciiPanel;
 import roguelike.World.World;
 import roguelike.levelBuilding.Tile;
 import roguelike.utility.Point;
+
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayScreen implements Screen {
 	
@@ -60,7 +60,7 @@ public class PlayScreen implements Screen {
 			messages.remove(s);
 		}
 		
-		for(int i = 0; i < messages.size(); i++){
+		for(int i = 0; i < messages.size() && mapHeight + i < terminal.getHeightInCharacters(); i++){
 			terminal.writeCenter(messages.get(i), mapHeight + i);
 		}
 		if(subscreen == null){

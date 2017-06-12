@@ -14,5 +14,5 @@ public interface EntityInterface {
 	public int armor();
 	public void move(int x, int y);
 	public void meleeAttack(BaseEntity otherEntity);
-	public void notify(String message, Object... params);
+	public void notify(String message, Object...params);
 }

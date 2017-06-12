@@ -1,8 +1,4 @@
 package roguelike.World;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.*;
-
 import roguelike.Items.ItemFactory;
 import roguelike.Level.Level;
 import roguelike.Mob.MobStore;
@@ -10,6 +6,14 @@ import roguelike.Mob.Player;
 import roguelike.levelBuilding.Tile;
 import roguelike.utility.Point;
 import roguelike.utility.RandomGen;
+import squidpony.squidmath.Coord;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
 
 public class World {
 	public int screenWidth, mapHeight;
@@ -103,9 +107,9 @@ public class World {
 	
 	public void goUpALevel(){
 		if(levels.containsKey(getCurrentLevel().levelNumber - 1)){
-			levels.get(currentLevel.levelNumber - 1).mobs.add(player);
+			levels.get(currentLevel.levelNumber - 1).mobs.put(Coord.get(player.x, player.y), player);
 			player.setLevel(levels.get(currentLevel.levelNumber - 1));
-			levels.get(currentLevel.levelNumber).mobs.remove(player);
+			levels.get(currentLevel.levelNumber).mobs.remove(Coord.get(player.x, player.y));
 			setCurrentLevel(levels.get(getCurrentLevel().levelNumber - 1));
 			getCurrentLevel().setPlayer(player);
 			if(getCurrentLevel().levelNumber == 1){
@@ -122,9 +126,9 @@ public class World {
 	
 	public void goDownALevel(){
 		if(levels.containsKey(currentLevel.levelNumber + 1)){
-			levels.get(currentLevel.levelNumber + 1).mobs.add(player);
+			levels.get(currentLevel.levelNumber + 1).mobs.put(Coord.get(player.x, player.y), player);
 			player.setLevel(levels.get(currentLevel.levelNumber + 1));
-			levels.get(currentLevel.levelNumber).mobs.remove(player);
+			levels.get(currentLevel.levelNumber).mobs.remove(Coord.get(player.x, player.y));
 			setCurrentLevel(levels.get(getCurrentLevel().levelNumber + 1));
 			getCurrentLevel().setPlayer(player);
 			getCurrentLevel().addAtUpStaircase(player);
@@ -140,7 +144,7 @@ public class World {
 			tempLevel.setPlayer(player);
 			tempLevel.addAtUpStaircase(player);
 			player.setLevel(tempLevel);
-			tempLevel.mobs.add(player);
+			tempLevel.mobs.put(Coord.get(player.x, player.y), player);
 			currentLevel.remove(player);
 			tempLevel.levelNumber = currentLevel.levelNumber + 1;
 			setCurrentLevel(tempLevel);
