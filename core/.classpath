@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry path="bin" kind="output"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7/"/>
+	<classpathentry sourcepath="C:/Users/Tommy/.m2/repository/com/badlogicgames/gdx/gdx/1.9.6/gdx-1.9.6-sources.jar" kind="lib" path="C:/Users/Tommy/.m2/repository/com/badlogicgames/gdx/gdx/1.9.6/gdx-1.9.6.jar"/>
+	<classpathentry sourcepath="C:/Users/Tommy/.m2/repository/com/github/tommyettinger/regexodus/0.1.9/regexodus-0.1.9-sources.jar" kind="lib" path="C:/Users/Tommy/.m2/repository/com/github/tommyettinger/regexodus/0.1.9/regexodus-0.1.9.jar"/>
+	<classpathentry sourcepath="C:/Users/Tommy/.m2/repository/com/github/tommyettinger/blazingchain/1.4.4.1/blazingchain-1.4.4.1-sources.jar" kind="lib" path="C:/Users/Tommy/.m2/repository/com/github/tommyettinger/blazingchain/1.4.4.1/blazingchain-1.4.4.1.jar"/>
+	<classpathentry sourcepath="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.github.SquidPony.SquidLib/squidlib-util/953317865d/d47e9955cc1405796036f7c905eedc969a825544/squidlib-util-953317865d-sources.jar" kind="lib" path="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.github.SquidPony.SquidLib/squidlib-util/953317865d/117b1bc6b4eadae6f24ab00731ea25950b3fd1a2/squidlib-util-953317865d.jar"/>
+	<classpathentry sourcepath="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.github.SquidPony.SquidLib/squidlib/953317865d/cc98101d0899b33f8960b416a8e9ae68dc25c5e6/squidlib-953317865d-sources.jar" kind="lib" path="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.github.SquidPony.SquidLib/squidlib/953317865d/d93831a3fdfe5b1a9a9e9eee3574efc6e80fa596/squidlib-953317865d.jar"/>
+	<classpathentry sourcepath="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.github.SquidPony.SquidLib/squidlib-extra/953317865d/47abafc356f117ef8a387b70c864503beb54c2b6/squidlib-extra-953317865d-sources.jar" kind="lib" path="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.github.SquidPony.SquidLib/squidlib-extra/953317865d/c1e05868bec848896c8293c3429192d01160cae7/squidlib-extra-953317865d.jar"/>
+	<classpathentry sourcepath="C:/Users/Tommy/.m2/repository/com/github/tommyettinger/blazingchain/1.4.4.1/blazingchain-1.4.4.1-sources.jar" kind="lib" path="C:/Users/Tommy/.m2/repository/com/github/tommyettinger/blazingchain/1.4.4.1/blazingchain-1.4.4.1-sources.jar"/>
+</classpath>

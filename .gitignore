@@ -37,9 +37,6 @@ www-test/
 out/
 
 ## Eclipse
-.classpath
-.project
-.metadata
 **/bin/
 tmp/
 *.tmp

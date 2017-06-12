@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry path="war/WEB-INF/classes" kind="output"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7/"/>
+	<classpathentry kind="src" path="/DungeonsOfElentria-core">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Tommy/.m2/repository/com/badlogicgames/gdx/gdx/1.9.6/gdx-1.9.6-sources.jar" kind="lib" path="C:/Users/Tommy/.m2/repository/com/badlogicgames/gdx/gdx/1.9.6/gdx-1.9.6-sources.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Tommy/.m2/repository/com/badlogicgames/gdx/gdx/1.9.6/gdx-1.9.6-sources.jar" kind="lib" path="C:/Users/Tommy/.m2/repository/com/badlogicgames/gdx/gdx/1.9.6/gdx-1.9.6.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-backend-gwt/1.9.6/c963983c4175846bff6b0e6d0ff50f68b840b002/gdx-backend-gwt-1.9.6-sources.jar" kind="lib" path="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-backend-gwt/1.9.6/1259340b809a450de45f9552954df7968cb11cb7/gdx-backend-gwt-1.9.6.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-backend-gwt/1.9.6/c963983c4175846bff6b0e6d0ff50f68b840b002/gdx-backend-gwt-1.9.6-sources.jar" kind="lib" path="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-backend-gwt/1.9.6/c963983c4175846bff6b0e6d0ff50f68b840b002/gdx-backend-gwt-1.9.6-sources.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Tommy/.m2/repository/com/github/tommyettinger/regexodus/0.1.9/regexodus-0.1.9-sources.jar" kind="lib" path="C:/Users/Tommy/.m2/repository/com/github/tommyettinger/regexodus/0.1.9/regexodus-0.1.9-sources.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Tommy/.m2/repository/com/github/tommyettinger/regexodus/0.1.9/regexodus-0.1.9-sources.jar" kind="lib" path="C:/Users/Tommy/.m2/repository/com/github/tommyettinger/regexodus/0.1.9/regexodus-0.1.9.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Tommy/.m2/repository/com/github/tommyettinger/blazingchain/1.4.4.1/blazingchain-1.4.4.1-sources.jar" kind="lib" path="C:/Users/Tommy/.m2/repository/com/github/tommyettinger/blazingchain/1.4.4.1/blazingchain-1.4.4.1-sources.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Tommy/.m2/repository/com/github/tommyettinger/blazingchain/1.4.4.1/blazingchain-1.4.4.1-sources.jar" kind="lib" path="C:/Users/Tommy/.m2/repository/com/github/tommyettinger/blazingchain/1.4.4.1/blazingchain-1.4.4.1.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.github.SquidPony.SquidLib/squidlib-util/953317865d/d47e9955cc1405796036f7c905eedc969a825544/squidlib-util-953317865d-sources.jar" kind="lib" path="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.github.SquidPony.SquidLib/squidlib-util/953317865d/d47e9955cc1405796036f7c905eedc969a825544/squidlib-util-953317865d-sources.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.github.SquidPony.SquidLib/squidlib-util/953317865d/d47e9955cc1405796036f7c905eedc969a825544/squidlib-util-953317865d-sources.jar" kind="lib" path="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.github.SquidPony.SquidLib/squidlib-util/953317865d/117b1bc6b4eadae6f24ab00731ea25950b3fd1a2/squidlib-util-953317865d.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.github.SquidPony.SquidLib/squidlib/953317865d/cc98101d0899b33f8960b416a8e9ae68dc25c5e6/squidlib-953317865d-sources.jar" kind="lib" path="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.github.SquidPony.SquidLib/squidlib/953317865d/cc98101d0899b33f8960b416a8e9ae68dc25c5e6/squidlib-953317865d-sources.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.github.SquidPony.SquidLib/squidlib/953317865d/cc98101d0899b33f8960b416a8e9ae68dc25c5e6/squidlib-953317865d-sources.jar" kind="lib" path="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.github.SquidPony.SquidLib/squidlib/953317865d/d93831a3fdfe5b1a9a9e9eee3574efc6e80fa596/squidlib-953317865d.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.github.SquidPony.SquidLib/squidlib-extra/953317865d/47abafc356f117ef8a387b70c864503beb54c2b6/squidlib-extra-953317865d-sources.jar" kind="lib" path="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.github.SquidPony.SquidLib/squidlib-extra/953317865d/47abafc356f117ef8a387b70c864503beb54c2b6/squidlib-extra-953317865d-sources.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.github.SquidPony.SquidLib/squidlib-extra/953317865d/47abafc356f117ef8a387b70c864503beb54c2b6/squidlib-extra-953317865d-sources.jar" kind="lib" path="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.github.SquidPony.SquidLib/squidlib-extra/953317865d/c1e05868bec848896c8293c3429192d01160cae7/squidlib-extra-953317865d.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.google.gwt/gwt-servlet/2.8.0/f2ea4f4762b01d4df035582a29524acea5a5403e/gwt-servlet-2.8.0-sources.jar" kind="lib" path="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.google.gwt/gwt-servlet/2.8.0/8fba7d39f9a341892cda502aacb2f5287bd49309/gwt-servlet-2.8.0.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.google.gwt/gwt-codeserver/2.8.0/b37ef2b3f44e196353d0e65d946a575b8f5ebe82/gwt-codeserver-2.8.0-sources.jar" kind="lib" path="C:/Users/Tommy/.gradle/caches/modules-2/files-2.1/com.google.gwt/gwt-codeserver/2.8.0/6c1bec5a7a57b4ba292eb958e61463ee61727369/gwt-codeserver-2.8.0.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+		</attributes>
+	</classpathentry>
+</classpath>
